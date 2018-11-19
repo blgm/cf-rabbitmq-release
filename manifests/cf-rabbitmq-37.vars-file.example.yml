@@ -9,3 +9,4 @@ cluster-partition-handling-strategy: pause_minority
 haproxy-instances: 1
 rabbitmq-management-hostname: cf-rabbitmq-37
 bosh-domain: rabbitmq.pivotal.io
+rabbitmq-cookie: PESQDCCIIRBNWGTRXWMQ

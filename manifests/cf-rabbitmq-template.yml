@@ -4,10 +4,6 @@ name: ((deployment-name))
 releases:
 - name: cf-rabbitmq
   version: latest
-- name: routing
-  version: 0.179.0
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/cf-routing-release?v=0.179.0
-  sha1: 203061d0438ed76f25573080f9d1f73f06de5851
 
 stemcells:
 - alias: trusty
@@ -48,31 +44,6 @@ instance_groups:
   vm_type: n1-highmem-4
   stemcell: trusty
   persistent_disk_type: 100GB
-  networks:
-  - name: default
-  azs:
-  - z1
-  - z2
-
-- name: haproxy
-  instances: ((haproxy-instances))
-  jobs:
-  - name: rabbitmq-haproxy
-    release: cf-rabbitmq
-  - name: route_registrar
-    release: routing
-    consumes:
-      nats: {from: nats, deployment: cf}
-    properties:
-      route_registrar:
-        routes:
-        - name: ((rabbitmq-management-hostname))
-          port: 15672
-          registration_interval: 20s
-          uris:
-          - ((rabbitmq-management-hostname)).((system-domain))
-  vm_type: n1-standard-1
-  stemcell: trusty
   networks:
   - name: default
   azs:
